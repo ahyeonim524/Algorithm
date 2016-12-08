@@ -1,0 +1,76 @@
+import java.util.Scanner;
+
+class Mountain{
+	int x;
+	int y;
+	int value;
+	Mountain(int x,int y,int value){
+		this.x=x;
+		this.y=y;
+		this.value=value;
+	}
+}
+public class SeperateArea {
+
+	static int N;
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		Mountain[]mount;
+		int T=in.nextInt();
+		int maxX=0;
+		int maxY=0;
+		int result=0;
+		for(int i=0;i<T;i++){
+			N=in.nextInt();
+			mount=new Mountain[N];
+			
+			for(int j=0;j<N;j++){
+				int x=in.nextInt();
+				int y=in.nextInt();
+				int v=in.nextInt();
+				
+				if(maxX<x){
+					maxX=x;
+				}
+				if(maxY<y){
+					maxY=y;
+				}
+				mount[j]=new Mountain(x,y,v);
+			}	
+			
+			for(double a=0.5;a<=maxX+0.5;a+=0.5){
+				for(double b=0.5;b<=maxY+0.5;b+=0.5){
+					int temp=calculate(mount,a,b);
+					if(temp>result){
+						result=temp;
+					}
+				}
+			}
+			System.out.println("Case #"+(i+1));
+			System.out.println(result);
+			
+		}
+	}
+	static int calculate(Mountain[]mount,double px,double py){
+		int score=0;
+		for(int i=0;i<N;i++){
+			//NW
+			if(mount[i].x<px&&mount[i].y>py&&mount[i].value==1){
+				score++;
+			}
+			//SE
+			else if(mount[i].x>px&&mount[i].y<py&&mount[i].value==1){
+				score++;
+			}
+			//SW
+			else if(mount[i].x<px&&mount[i].y<py&&mount[i].value==0){
+				score++;
+			}
+			//NE
+			else if(mount[i].x>px&&mount[i].y>py&&mount[i].value==0){
+				score++;
+			}
+		}
+		return score;
+	}
+}

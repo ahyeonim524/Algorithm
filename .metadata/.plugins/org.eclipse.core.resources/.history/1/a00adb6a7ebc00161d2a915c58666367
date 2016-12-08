@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class FreeLancer {
+
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		int T=in.nextInt();
+		int N;
+		int[][]arr;
+		for(int i=0;i<T;i++){
+			N=in.nextInt();
+			arr=new int[2][N];
+			
+			for(int a=0;a<2;a++){
+				for(int b=0;b<N;b++){
+					arr[a][b]=in.nextInt();
+				}
+			}
+			
+			for(int a=0;a<2;a++){
+				for(int b=0;b<N;b++){
+					System.out.print(arr[a][b]+" ");
+				}
+				System.out.println();
+			}
+			
+		}
+	}
+}

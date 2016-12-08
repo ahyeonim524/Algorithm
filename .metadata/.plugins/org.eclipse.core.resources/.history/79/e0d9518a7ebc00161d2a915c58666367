@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+public class FreeLancer {
+
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		int T=in.nextInt();
+		int N;
+		int[][]arr;
+		for(int i=0;i<T;i++){
+			N=in.nextInt();
+			int max;
+			int caseIdx;
+			int score=0;
+			int flag=-1;
+			arr=new int[2][N];
+			
+			for(int a=0;a<2;a++){
+				for(int b=0;b<N;b++){
+					arr[a][b]=in.nextInt();
+				}
+			}
+			
+			for(int j=0;j<N-2;j++){
+				
+				max=arr[0][j]+arr[0][j+1]+arr[0][j+2];
+				caseIdx=1;
+	
+				if(flag==0){
+					if(max<arr[0][j]+arr[1][j+2]){
+						max=arr[0][j]+arr[1][j+2];
+						caseIdx=2;
+					}
+					if(max<arr[1][j]+arr[0][j+1]+arr[0][j+2]){
+						max=arr[1][j]+arr[0][j+1]+arr[0][j+2];
+						caseIdx=3;
+					}
+					if(max<arr[1][j]+arr[1][j+2]){
+						max=arr[1][j]+arr[1][j+2];
+						caseIdx=4;
+					}
+					if(max<arr[1][j+1]+arr[0][j+2]){
+						max=arr[1][j+1]+arr[0][j+2];
+						caseIdx=5;
+					}
+				}
+				else{
+					if(max<arr[0][j]+arr[1][j+2]){
+						max=arr[0][j]+arr[1][j+2];
+						caseIdx=2;
+					}
+					if(max<arr[1][j+1]+arr[0][j+2]){
+						max=arr[1][j+1]+arr[0][j+2];
+						caseIdx=5;
+					}
+				}
+				
+				
+				switch(caseIdx){
+				case 1:score+=arr[0][j]+arr[0][j+1];flag=0;break;
+				case 2:score+=arr[0][j];flag=0;break;
+				case 3:score+=arr[1][j]+arr[0][j+1];flag=0;break;
+				case 4:score+=arr[1][j];flag=0;break;
+				case 5:score+=arr[1][j+1];flag=1;break;
+				}
+				
+			}
+			
+			if(flag==0){
+				score+=Math.max(arr[0][N-1], arr[1][N-1]);
+			}
+			else{
+				score+=arr[0][N-1];
+			}
+			
+			System.out.println(score);
+		}
+	}
+}
